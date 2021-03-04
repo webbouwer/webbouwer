@@ -1,5 +1,12 @@
 ### Webbouwer Repositories 💬
-- 🌱 I’m currently learning ...
+🔭 Webdesign and Development
+- [x] HTML/CSS/XML
+- [x] PHP
+- [x] Javascript
+- [x] Wordpress
+- [x] Webdesign Den Haag IT
+- [x] Early Robots Education Company
+- [x] Oddsized Entrepeneur
 <!--
 **webbouwer/webbouwer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
