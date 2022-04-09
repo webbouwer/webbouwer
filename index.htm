@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>webbouwer</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+<script>
+
+
+getGitUrl('webbouwer', getUserInfo );
+
+getGitUrl('webbouwer/events', userEvents );
+
+
+
+/**
+ * Github User
+ */
+function getUserInfo(){
+
+  var responseObj = JSON.parse(this.responseText);
+
+  var gu_data = new Array();
+
+  // name
+  gu_data['name'] = responseObj.name;
+  // avatar url
+  gu_data['avatar'] = responseObj.avatar_url
+  // user bio
+  gu_data['bio'] = responseObj.bio;
+  // user location
+  gu_data['location'] = responseObj.location;
+  // githubpage
+  gu_data['page'] = responseObj.html_url;
+  // blog/site
+  gu_data['website'] = responseObj.blog;
+
+  // user email
+  gu_data['email'] = responseObj.email;
+  // user hireable
+  gu_data['hireable'] = responseObj.hireable;
+
+
+  // repos count
+  gu_data['repos'] = responseObj.public_repos;
+  // gist count
+  gu_data['gists'] = responseObj.public_gists;
+  // followers count
+  gu_data['followers'] = responseObj.followers;
+  // following count
+  gu_data['following'] = responseObj.following;
+
+  // output
+  var userinfo = '<ul>';
+  for( nm in gu_data){
+  	var val = gu_data[nm];
+  	if( nm == 'avatar'){
+		userinfo = '<img src="'+val+'" width="64" height="auto" border="none" />'+userinfo;
+	}else
+	if( nm == 'page' || nm == 'website'){
+		userinfo += '<li>'+nm+': <a href="'+addhttps(val)+'" target="_blank">'+val+'</a></li>';
+	}else{
+		if( val != '' && val != null){
+  			userinfo += '<li>'+nm+': '+val+'</li>';
+		}
+	}
+  }
+  userinfo += '</ul>';
+
+  document.getElementById("gubox").innerHTML = userinfo;
+
+  //alert(this.responseText);
+}
+
+
+
+
+/**
+ * Github Events
+ */
+function userEvents(){
+
+	var responseObj = JSON.parse(this.responseText);
+	var eventinfo = '';
+	if( responseObj.length > 0 ){
+
+		 for( key in responseObj){
+
+		 	// CreateEvent, IssuesEvent, PushEvent, IssueCommentEvent, PullRequestEvent, DeleteEvent
+			eventinfo += getEvent( responseObj[key] );
+		 }
+
+		 document.getElementById("guevents").innerHTML = eventinfo;
+	}
+}
+
+function getType( data ){
+	// CreateEvent, IssuesEvent, PushEvent, IssueCommentEvent, PullRequestEvent, DeleteEvent
+	var type = '';
+
+	switch ( data.type  ){
+    default:
+        type = "Undefined event";
+        break;
+    case "CreateEvent":
+        type = "CreateEvent";
+        break;
+    case "IssuesEvent":
+        type = "IssuesEvent";
+        break;
+	case "PushEvent":
+        type = "PushEvent";
+        break;
+    case "IssueCommentEvent":
+        type = "IssueCommentEvent";
+        break;
+	case "PullRequestEvent":
+        type = "PullRequestEvent";
+        break;
+    case "DeleteEvent":
+        type = "DeleteEvent";
+        break;
+
+	}
+	return type;
+
+}
+function getEvents( data ){
+
+	var type = getType( data );
+
+}
+
+/**
+ * String helpers
+ */
+function addhttps(url) {
+   if (!/^(f|ht)tps?:\/\//i.test(url)) {
+      url = "https://" + url;
+   }
+   return url;
+}
+
+/**
+ * Github url request
+ */
+function getGitUrl( urlend, callback ){
+	var userUrl = 'https://api.github.com/users/'+ urlend;
+	var request = new XMLHttpRequest();
+	request.onload = callback;
+	request.open('get', userUrl, true);
+	request.send();
+}
+
+</script>
+</head>
+<body>
+
+<div id="gubox"><img src="https://avatars.githubusercontent.com/u/36711733?v=4" width="64" height="auto" border="none"><ul><li>name: webbouwer</li><li>bio: DIY and learn
+</li><li>location: The Hague, The Netherlands</li><li>page: <a href="https://github.com/webbouwer" target="_blank">https://github.com/webbouwer</a></li><li>website: <a href="https://www.genboy.net" target="_blank">www.genboy.net</a></li><li>repos: 13</li><li>gists: 11</li><li>followers: 28</li><li>following: 91</li></ul></div>
+<div id="guevents"></div>
+
+
+</body>
+</html>
