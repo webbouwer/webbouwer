@@ -7,7 +7,7 @@
 - [x] UI Design
 - [x] Webdevelopment
 
-https://webbouwer.org/build
+https://webbouwer.org/lab
 
 <!--
 **webbouwer/webbouwer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
